@@ -3,7 +3,27 @@ import path from 'path';
 import fs from 'fs';
 import bcrypt from 'bcryptjs';
 
-const dbPath = path.resolve(process.cwd(), 'database.sqlite');
+let dbPath = path.resolve(process.cwd(), 'database.sqlite');
+
+// Vercel Serverless environment workaround:
+// The root filesystem is read-only, so we copy the DB to /tmp if running on Vercel.
+if (process.env.VERCEL === '1') {
+  const tmpPath = path.join('/tmp', 'database.sqlite');
+  try {
+    if (!fs.existsSync(tmpPath)) {
+      console.log(`Copying database from ${dbPath} to ${tmpPath}`);
+      if (fs.existsSync(dbPath)) {
+        fs.copyFileSync(dbPath, tmpPath);
+      } else {
+        console.warn(`Source database not found at ${dbPath}, a new empty database will be created at ${tmpPath}`);
+      }
+    }
+    dbPath = tmpPath;
+  } catch (err) {
+    console.error('Failed to copy database to /tmp:', err);
+  }
+}
+
 const db = new Database(dbPath);
 
 // Enable WAL mode for performance and concurrency
