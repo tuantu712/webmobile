@@ -4,6 +4,7 @@ import { Home, LayoutGrid, ShoppingBag, Heart, User, Menu, Bell, LogOut, X, Moon
 import { useAuthStore } from '../store/useAuthStore';
 import { useCartStore } from '../store/useCartStore';
 import { useWishlistStore } from '../store/useWishlistStore';
+import { API_BASE_URL } from '../api/axios';
 
 export default function MainLayout() {
   const { user, isAuthenticated, logout } = useAuthStore();
@@ -101,7 +102,7 @@ export default function MainLayout() {
             {user.email === 'admin@fuzzy.com' && (
               <li>
                 <a 
-                  href="http://localhost:3001/admin" 
+                  href={`${API_BASE_URL}/admin`} 
                   target="_blank" 
                   rel="noreferrer" 
                   className="flex items-center gap-3 p-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-card-dark border border-transparent hover:border-primary-light transition-all"

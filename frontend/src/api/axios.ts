@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let API_BASE_URL = 'http://localhost:3001';
+export let API_BASE_URL = 'http://localhost:3001';
 
 if (typeof window !== 'undefined') {
   const hostname = window.location.hostname;
