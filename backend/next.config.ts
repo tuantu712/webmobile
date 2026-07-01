@@ -2,10 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  experimental: {
-    outputFileTracingIncludes: {
-      '/api/**/*': ['./database.sqlite'],
-    },
+  outputFileTracingIncludes: {
+    '/api/**/*': ['./database.sqlite'],
   },
 };
 
