@@ -8,6 +8,9 @@ if (typeof window !== 'undefined') {
   if (hostname.endsWith('.loca.lt')) {
     // If accessed via localtunnel, use the backend localtunnel URL
     API_BASE_URL = 'https://fuzzy-api-v10.loca.lt';
+  } else if (hostname.endsWith('.vercel.app')) {
+    // If deployed on Vercel, use the Vercel backend URL
+    API_BASE_URL = 'https://backend-nu-nine-23.vercel.app';
   } else if (hostname === 'localhost' || hostname === '127.0.0.1') {
     // If on localhost, talk to backend localhost directly
     API_BASE_URL = 'http://localhost:3001';
